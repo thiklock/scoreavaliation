@@ -150,4 +150,10 @@ def real_state_loans_explorer(df):
 
 number_real_state_loans_explored = real_state_loans_explorer(df_droped_cols)
 
+def generate_cleaned_data(df):
+    cleaned_date = df
+    df.to_csv(r'cleaned_test.csv')
+
+cleaned_data = generate_cleaned_data(df_droped_cols)
+
 
