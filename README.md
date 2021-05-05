@@ -79,6 +79,13 @@ Data Exploration:
 
         To investigater further the relation between age and inadimplente the clients were grouped by age groups and the mean average of inadimplente and mean age was shown by age group.
 
+        It is very important to watch thi graph carefully. There is a clear trend ins this dataset: There are more clients who fail in the two younger groups than in the others.
+
+        LAST TWO FUNCTIONS
+
+        There are a infinite number of thing taht should be done with the purpose of a better analsys of the dataset as a compation, feature by feature, compairng how the column inadimplente behaves feature by feature.  
+        
+
 
 
     
