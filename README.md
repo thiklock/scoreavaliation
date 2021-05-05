@@ -25,6 +25,7 @@ Time Management:
 # Desenvolvimento
 
 Step by Step
+
 Pre Work:
     Create virtual enviroment with python 3.6
     Create debugger file module at Visual code Studio
@@ -62,7 +63,29 @@ Data Exploration:
 
     The project can procede with the first drop but not with the second.
 
-    With this being said the best solution for this should be not to drop the rows but reither fill with averages (low impact or either to drop the column it self.) As the time table it is very short, the best option it is to drop it now, procede with the task and return to it if there is time.
+    With this being said the best solution for this should be not to drop the rows but reither fill with averages (low impact or either to drop the column it self.) As the time table it is very short, the best option it is to drop it now, procede with the task and return to it if there is enough time.
+
+    First thing in a analysis like this, should undersntand how balanced is our dataset, i.e. how is the data balanced between both of the possibilities: overdue(1) or not(0). 
+
+    The dataset is heavely inbalanced, showing 7331 overdued samples for 102669 not overdued people.
+
+    As the age feature showed a grater impact we should invetigate further the impact of it.
+
+    With the funciton age_explorer thi distribution of the age is ploted showing a heavy concentration around the age of 40 years old. The minimum age f 0 and the maximum of 109 it is also detected and printed by the function.
+
+        In this same function ages of 0 and some other incosistencies are droped as a way to improve data quality.
+
+        A new line chart of the distribution it is ploted now showing the density comparing the diference between valuew of inadimplentes and not inadimplentes.
+
+        To investigater further the relation between age and inadimplente the clients were grouped by age groups and the mean average of inadimplente and mean age was shown by age group.
+
+
+
+    
+
+
+
+    
 
 
     
@@ -73,4 +96,6 @@ Data Exploration:
 
 ### Sources
 https://hal.archives-ouvertes.fr/hal-02507499v2/document
+
+https://medium.com/analytics-vidhya/what-is-balance-and-imbalance-dataset-89e8d7f46bc5
 
