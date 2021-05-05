@@ -4,9 +4,7 @@ Levantamento de histórico
 Declaração do Objetivo
 # Ferramentas Aplicadas e Sujestões
 Validar em Dev, realizar o deploy em prod
-# Desenvolvimento
-
-Passo a Passoy
+# Planning
 Time Management:
     There is 72 hours to achive the goal. Me, the Executor,  has only 24 hours i the day
     which 8 are destined to sleeping, 2 for general activities and 9 to work. This means I have only 5 hours a day to apply to the project. 
@@ -24,11 +22,55 @@ Time Management:
     Last 5 Hours: Model Avaliation and Presentation:
         At the final sprint of the project the focus shall be on the evalutation of the model and on the presentation. As this project shall be reviewd by someone who understands python the main effort will be applied to leep it dry and comment anything necessary but a presentation should be added if there is time for it.
 
-Data Cleaning:
-    As in any Data Science Project, most of the time usually is and should be
-    applied to the data cleaning step.
+# Desenvolvimento
 
+Step by Step
+Pre Work:
+    Create virtual enviroment with python 3.6
+    Create debugger file module at Visual code Studio
+    Create git repository
+
+Data Exploration:
+    Action:
+    The data was read, described and the null values were counted.
+    Result:
+    There are 10 columns and 110 000 rows of data.
+    The types of the columns are described and in resume:
+
+            #   Column                                 Non-Null Count   Dtype  
+        ---  ------                                 --------------   -----  
+         0   inadimplente                           110000 non-null  int64  
+         1   util_linhas_inseguras                  110000 non-null  float64
+         2   idade                                  110000 non-null  int64  
+         3   vezes_passou_de_30_59_dias             110000 non-null  int64  
+         4   razao_debito                           110000 non-null  float64
+         5   salario_mensal                         88237 non-null   float64
+         6   numero_linhas_crdto_aberto             110000 non-null  int64  
+         7   numero_vezes_passou_90_dias            110000 non-null  int64  
+         8   numero_emprestimos_imobiliarios        110000 non-null  int64  
+         9   numero_de_vezes_que_passou_60_89_dias  110000 non-null  int64  
+         10  numero_de_dependentes                  107122 non-null  float64
+        dtypes: float64(4), int64(7)
+        memory usage: 9.2 MB
+
+    Every column looks great with efew asonable non null    values but two:
+
+        There are 21760 null values in the column   "salario_mensal".
+        There are 2878 null values in the column    "numero_de_dependentes".
+
+    There are many ways for daeling with those missing values, to drop the columns or the row with missing values could be a solution for the "numero_de_dependentes" column as only as small part suffers (2,6%), but for the other column "numero_de_dependentes" the impact would be of 19,79% of the total rows.
+
+    The project can procede with the first drop but not with the second.
+
+    With this being said the best solution for this should be not to drop the rows but reither fill with averages (low impact or either to drop the column it self.) As the time table it is very short, the best option it is to drop it now, procede with the task and return to it if there is time.
+
+
+    
 # Instruções
 
 # Conclusão
+
+
+### Sources
+https://hal.archives-ouvertes.fr/hal-02507499v2/document
 
