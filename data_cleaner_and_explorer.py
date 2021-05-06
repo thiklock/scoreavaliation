@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 
 from library import Data_Cleaner
 
-raw_data_path = '/home/tik/chal/dataminer/source/treino.csv'
+raw_train_data_path = '/home/tik/chal/dataminer/source/treino.csv'
+raw_test_data_path = '/home/tik/chal/dataminer/source/teste.csv'
 
 def data_loader(path):
     print('loading file from' + path)
@@ -14,45 +15,46 @@ def data_loader(path):
     print(df.head(5))
     return df
 
-df_raw = data_loader(raw_data_path) # Loading the raw file into a df variable
+df_raw_train = data_loader(raw_train_data_path) # Loading the raw file into a df variable
+df_raw_test = data_loader(raw_test_data_path)
 
-def data_describe(df_raw):
+def data_describe(df):
     '''
     This function prints a series of information
     from the data received.
     '''
     print('describing raw dara')
-    df_described = df_raw.describe()
+    df_described = df.describe()
     print(df_described)
 
     print('Data types:')
-    data_types = df_raw.dtypes
+    data_types = df.dtypes
     print(data_types)
 
     print('data info')
-    data_info = df_raw.info()
+    data_info = df.info()
     print(data_info
     )
     print('Count of nulls:')
-    count_of_nulls = df_raw.isnull().sum()
+    count_of_nulls = df.isnull().sum()
     print(count_of_nulls)
     return count_of_nulls
 
-df_described = data_describe(df_raw)
+df_described = data_describe(df_raw_train)
 
 
 
 def df_drop_col(df):
-    cols_to_drop = ['salario_mensal', 'salario_mensal']
+    cols_to_drop = ['salario_mensal', 'salario_mensal', 'numero_de_dependentes']
     print('Droping Columns:')
     print(cols_to_drop)
     df_with_droped_cols = df.drop(columns=cols_to_drop)
     print('Columns Droped.')
     return df_with_droped_cols
 
-df_droped_cols = df_drop_col(df_raw)
+df_train_droped_cols = df_drop_col(df_raw_train)
+df_test_droped_cols = df_drop_col(df_raw_test)
 
-print(df_droped_cols)
 def pairplot(df):
     ploted_matplot_lib = pd.plotting.scatter_matrix(df, figsize=(10,10), marker = 'o', hist_kwds = {'bins': 10}, s = 60, alpha = 0.8)
     plt.savefig('raw_data_with_droped_cols_matplotlib.png')
@@ -61,7 +63,7 @@ def pairplot(df):
     plt.savefig("seaborn_plot.png")
     plt.show()
 
-# droped_cols_plot = pairplot(df_droped_cols)
+# droped_cols_plot = pairplot(df_train_droped_cols)
 
 # /home/tik/chal/dataminer/source/treino.csv
 
@@ -74,7 +76,7 @@ def balance_evaluation(df):
     print(count_not_inadimplente)
 
 
-amount_ina = balance_evaluation(df_droped_cols)
+amount_ina = balance_evaluation(df_train_droped_cols)
 
 # Data Explore ??Evaluate duplicates??
 
@@ -91,7 +93,7 @@ def correlate(df):
     # # sns_plot.savefig("output.png")
     # sns_plot.figure.savefig('correlations_plot.png')
 
-correlation = correlate(df_droped_cols)
+correlation = correlate(df_train_droped_cols)
 
 def age_explorer(df):
     # plt.style.use('fivethirtyeight')
@@ -127,7 +129,7 @@ def age_explorer(df):
     plt.title('Failure to Repay by Age Group')
     plt.savefig('Failure_to_Repay_by_Age_Group.png')
 
-age_explored = age_explorer(df_droped_cols)
+age_explored = age_explorer(df_train_droped_cols)
 
 def open_cred_lines_explorer(df):
     plt.figure(figsize = (10, 8))
@@ -137,7 +139,7 @@ def open_cred_lines_explorer(df):
     plt.savefig('open_cred_lines_dist.png')
 
 
-open_lined_explored = open_cred_lines_explorer(df_droped_cols)
+open_lined_explored = open_cred_lines_explorer(df_train_droped_cols)
 
 def real_state_loans_explorer(df):
     print('creating number real estate loans plot.')
@@ -148,12 +150,14 @@ def real_state_loans_explorer(df):
     plt.savefig('number_real_state_loans.png')
     print('number real estate loans plot created.')
 
-number_real_state_loans_explored = real_state_loans_explorer(df_droped_cols)
+number_real_state_loans_explored = real_state_loans_explorer(df_train_droped_cols)
 
-def generate_cleaned_data(df):
-    cleaned_date = df
-    df.to_csv(r'cleaned_test.csv')
+def generate_cleaned_data(df_train, df_test):
+    df_train.to_csv(r'cleaned_train_data.csv', index = False)
+    df_test.to_csv(r'cleaned_test_data.csv', index = False)
 
-cleaned_data = generate_cleaned_data(df_droped_cols)
+
+cleaned_train_data = generate_cleaned_data(df_train_droped_cols, df_test_droped_cols)
+
 
 

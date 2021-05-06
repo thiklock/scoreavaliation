@@ -83,7 +83,11 @@ Data Exploration:
 
         LAST TWO FUNCTIONS
 
-        There are a infinite number of thing taht should be done with the purpose of a better analsys of the dataset as a compation, feature by feature, compairng how the column inadimplente behaves feature by feature.  
+        There are a infinite number of thing taht should be done with the purpose of a better analsys of the dataset as a compation, feature by feature, compairng how the column inadimplente behaves feature by feature.
+
+## Feature Engineering
+
+
         
 
 
