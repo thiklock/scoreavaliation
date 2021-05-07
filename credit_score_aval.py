@@ -217,9 +217,28 @@ def baseline_model(df_train, df_test):
 baseline_model(df_raw_train,df_raw_test)
 
 
+def df_drop_col(df):
+    cols_to_drop = ['salario_mensal', 'salario_mensal', 'numero_de_dependentes']
+    print('Droping Columns:')
+    print(cols_to_drop)
+    df_with_droped_cols = df.drop(columns=cols_to_drop)
+    print('Columns Droped.')
+    return df_with_droped_cols
+
+df_train_droped_cols = df_drop_col(df_raw_train)
+df_test_droped_cols = df_drop_col(df_raw_test)
+
+def auc_score(y_true, y_pred):
+    """
+    Calculates the Area Under ROC Curve (AUC)
+    """
+    return roc_auc_score(y_true, y_pred)
+
+# droped_null_columns(df_raw_train,df_raw_test)
+
 print('Random Forest Modelling')
 
-def random_forest_model(df_train, target):
+def random_forest_model(df_train, target, df_test):
     X_train, X_val, y_train, y_val = train_test_split(df_train, target,
                                                   test_size=0.30, 
                                                   random_state=2020, 
@@ -229,13 +248,25 @@ def random_forest_model(df_train, target):
     # Train on the training data
     random_forest.fit(X_train,y_train)
         # Extract feature importances
+    
+    features = list(df_train.columns)
     feature_importance_values = random_forest.feature_importances_
     feature_importances = pd.DataFrame({'feature': features, 'importance': feature_importance_values})
 
     # Get score on training set and validation set for random forest
-    train_preds = random_forest.predict_proba(X_train)[:, 1]
+    train_preds = random_forest.predict_proba(X_train, )[:, 1]
+    # probability_class_1 = model.predict_proba(X)[:, 1]
+    a = train_preds
+    print(a)
+    np.savetxt("foo.csv", a, delimiter=",", fmt='%f')
     val_preds = random_forest.predict_proba(X_val)[:, 1]
-    train_score = auc_score(y_train, train_preds)
-    val_score = auc_score(y_val, val_preds)
+    train_score = roc_auc_score(y_train, train_preds)
+    val_score = roc_auc_score(y_val, val_preds)
+    aval_test = val_preds = random_forest.predict_proba(df_test)[:, 1]
+    # Plot ROC curve
+    # plot_curve(y_train, train_preds, y_val, val_preds, "Random Forest Baseline")
 
-random_forest_model(df_raw_train, target)
+random_forest_model(df_train_droped_cols, target, df_test_droped_cols)
+
+print('Logistic Regression')
+

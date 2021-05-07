@@ -1,5 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import logging
+
 
 from sklearn.metrics import roc_auc_score,precision_recall_curve,roc_curve
 from sklearn.model_selection import train_test_split
@@ -20,9 +22,9 @@ import xgboost as xgb
 from sklearn.model_selection import StratifiedKFold
 
 def data_loader(path):
-    print('loading file from' + path)
+    logging.info('loading file from' + path)
     df = pd.read_csv(path)
-    print(df.head(5))
+    logging.info(df.head(5))
     return df
 
 cleaned_train_data = data_loader('cleaned_train_data.csv')
@@ -30,7 +32,7 @@ cleaned_test_data = data_loader('cleaned_test_data.csv')
 
 
 def data_processing(df_train, df_test):
-    print('Starting Processment:')
+    logging.info('Starting Processment:')
     train = df_train.drop(columns = ['inadimplente'])
     test = df_test
     # # Feature names
@@ -39,7 +41,7 @@ def data_processing(df_train, df_test):
     imputer = SimpleImputer(strategy = 'median')
     # Scale each feature to 0-1
     scaler = MinMaxScaler(feature_range = (0, 1))
-    print('Processment Finished.')
+    logging.info('Processment Finished.')
     # # Fit on the training data
     imputer.fit(train)
     # Transform both training and testing data
@@ -49,8 +51,8 @@ def data_processing(df_train, df_test):
     scaler.fit(train)
     train = scaler.transform(train)
     test = scaler.transform(test)
-    print('Training data shape: ', train.shape)
-    print('Testing data shape: ', test.shape)
+    logging.info('Training data shape: ', train.shape)
+    logging.info('Testing data shape: ', test.shape)
 
 data_processed = data_processing(cleaned_train_data, cleaned_test_data)
 
@@ -121,7 +123,7 @@ log_reg = LogisticRegression(C = 0.0001)
 # Train on the training data
 log_reg.fit(X_train, y_train)
 
-print('Get score on training set and validation set for Logistic Regression')
+logging.info('Get score on training set and validation set for Logistic Regression')
 # Get score on training set and validation set for Logistic Regression
 train_preds = log_reg.predict_proba(X_train)[:, 1]
 val_preds = log_reg.predict_proba(X_val)[:, 1]
@@ -129,4 +131,9 @@ train_score = auc_score(y_train, train_preds)
 val_score = auc_score(y_val, val_preds)
 
 # Plot ROC curve
+logging.info('Ploting Logistic Regression Baseline')
+
 plot_curve(y_train, train_preds, y_val, val_preds, "Logistic Regression Baseline")
+
+
+logging.info('Script Ended')
